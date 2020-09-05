@@ -8,7 +8,7 @@ import os
 
 home_folder = os.getenv('HOME')
 files = os.listdir(home_folder)
-Pictures = os.listdir("{}/Pictures".format(home_folder))
+
 
 make_video = input("would you like to compile the video? (yes/no) -- If you are using a piZero (no) is recommended: ")
 
@@ -54,6 +54,8 @@ if not "Pictures" in files:
         print("Created Pictures folder in User Home Directory")
     except OSError as err:
         print(err)
+
+Pictures = os.listdir("{}/Pictures".format(home_folder))
 
 camera = PiCamera()
 camera.resolution = (1920, 1080)
