@@ -24,9 +24,9 @@ for i in range(numphotos):
     sleep(secondsinterval)
 print("Done taking photos.")
 
-make_video = (input("would you like to compile the video? (y/n) -- If you are using a piZero (no) is recommended "))
+make_video = (input("would you like to compile the video? (yes/no) -- If you are using a piZero (no) is recommended: "))
 
-if make_video == "y" or "yes":
+if make_video == "yes":
     print("Please standby as your timelapse video is created.")
     system('ffmpeg -r {} -f image2 -s 1024x768 -nostats -loglevel 0 -pattern_type glob -i "/home/pi/Pictures/*.jpg" -vcodec libx264 -crf 25  -pix_fmt yuv420p /home/pi/Videos/{}.mp4'.format(fps, datetimeformat))
     print('Timelapse video is complete. Video saved as /home/pi/Videos/{}.mp4'.format(datetimeformat))
