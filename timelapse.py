@@ -4,11 +4,38 @@ import datetime
 from time import sleep
 import sys
 
-tlminutes = 10 #set this to the number of minutes you wish to run your timelapse camera
-secondsinterval = 1 #number of seconds delay between each photo taken
-fps = 30 #frames per second timelapse video
-numphotos = int((tlminutes*60)/secondsinterval) #number of photos to take
-print("number of photos to take = ", numphotos)
+make_video = input("would you like to compile the video? (yes/no) -- If you are using a piZero (no) is recommended: ")
+
+while True:
+    try:
+        tlminutes = int(input("Enter the number of minutes you wish to run your timelapse camera: ")) #set this to the number of minutes you wish to run your timelapse camera
+    except ValueError:
+        print("Invalid Input, a number is expected")
+        continue
+    else:
+        break
+
+while True:    
+    try:
+        secondsinterval = int(input("Enter the number of seconds delay between each photo taken: ")) #number of seconds delay between each photo taken
+    except ValueError:
+            print("Invalid Input, a number is expected")
+            continue
+    else:
+        break
+
+if make_video == "yes":
+    while True:
+        try:
+            fps = int(input("Enter the video fps: ")) #frames per second timelapse video
+        except ValueError:
+            print("Invalid Input, a number is expected")
+            continue
+        else:
+            break
+
+numphotos = (int(tlminutes)*60)/int(secondsinterval) #number of photos to take
+print("number of photos to take = ", int(numphotos))
 
 dateraw= datetime.datetime.now()
 datetimeformat = dateraw.strftime("%Y-%m-%d_%H:%M")
@@ -23,8 +50,6 @@ for i in range(numphotos):
     camera.capture('/home/pi/Pictures/image{0:06d}.jpg'.format(i))
     sleep(secondsinterval)
 print("Done taking photos.")
-
-make_video = (input("would you like to compile the video? (yes/no) -- If you are using a piZero (no) is recommended: "))
 
 if make_video == "yes":
     print("Please standby as your timelapse video is created.")
